@@ -23,7 +23,7 @@ Die Funktionsfähigkeit von PyStereoAlgEval ist mit den genannten Versionen veri
 Das Paket kann sich durch folgenden Befehl über die Python eigene Paketverwaltung [pip](https://pip.pypa.io/en/stable/) installieren, der in der Regel in der Python Installation enthalten ist.
 
 ```bash
-pip install -i https://test.pypi.org/simple/ pystereoalgeval
+pip install pystereoalgeval
 ```
 Falls ein Anaconda oder VirtualEnv Environment aufgesetzt worden ist, sollte dieses vor Ausführen des Befehls [aktiviert](https://stackoverflow.com/a/21707160) werden.
 

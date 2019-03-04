@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='pystereoalgeval',
-      version='0.2',
+      version='0.2.1',
       description='Automated Stereo Algorithm Evaluation',
       long_description=long_description,
       long_description_content_type="text/markdown",
