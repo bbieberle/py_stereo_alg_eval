@@ -1,6 +1,6 @@
 # PyStereoAlgEval
 
-Das Python basierte Stereo-Algorithus-Evaluations Toolkit ist eine einfach Lösung zur automatisierten Evaluation von Stereo Algorithmen. 
+Python Stereo Algorithm Evaluator - Das Python basierte Stereo-Algorithus-Evaluations Toolkit ist eine einfache Lösung zur automatisierten Evaluation von Stereo Algorithmen. 
 Dabei kommt ein intelligentes Verfahren des Templatings von Konsolenaufrufen zum Einsatz. Die erzeugten Disparitätsbilder werden automatisch mittels mehrerer konfigurierbarer Qualitätsmetriken ausgewertet und die Resultate in eine praktische CSV-Datei geschrieben.
 PyStereoAlgEval ermöglicht auch die Visualisierung aller erhobenen Daten in verschiedenen Ausprägungen.
 
@@ -53,9 +53,9 @@ Die Intensitätswerte des Bildes mit der Grundwahrheit, entsprechen im Zahlenwer
 Sollte eine Reskalierung der Testbilder stattgefunden haben, können zur Auswertung die Intensitätswerte der Grundwahrheit mit einem Faktor versehen werden.
 Dieser Faktor kann in der [Konfigurationsdatei](#konfiguration) angepasst werden.  
 __Wichtig:__  
-Invalide Disparitätswerte, oder Bildpunkte für die keine Grundwahrheit existiert, sind mit dem Wert 0 zu belegen.
+Invalide Disparitätswerte oder Bildpunkte, für die keine Grundwahrheit existiert, sind mit dem Wert 0 zu belegen.
 
-Es können alle 8-Bit Bilder verwendet, werden deren Format von OpenCV  gelesen werden kann (u.A. .png, .jpg, .tiff; siehe [Doku](https://docs.opencv.org/3.0-beta/modules/imgcodecs/doc/reading_and_writing_images.html)). Wobei verlustbehaftete Bildformate, wie z.B. JPEG, möglichst nicht verwendet werden sollten.
+Es können alle 8-Bit Bilder verwendet, werden deren Format von OpenCV  gelesen werden kann (u. A. .png, .jpg, .tiff; siehe [Doku](https://docs.opencv.org/3.0-beta/modules/imgcodecs/doc/reading_and_writing_images.html)). Wobei verlustbehaftete Bildformate, wie z.B. JPEG, möglichst nicht verwendet werden sollten.
 Des Weiteren sollte darauf geachtet werden, dass die verwendeten Testdaten kein größeres Disparitätsintervall als 255 Bildpunkte erfordern. 
 Grund dafür ist, dass eine Unterstützung von berechneten Disparitätsbildern mit einer größeren Bittiefe als 8, derzeit nicht verfügbar ist.
 
@@ -173,7 +173,7 @@ mode = python
 target = /Users/USER/software/stereo.py
 error_handling = interrupt
 ```
-- `mode` beschreibt, wie der in `target` definierte Algorithmus ausgeführt werden soll. `mode = python` ist benötigt, wenn es sich bei dem Target um ein Python-Skript handelt. Dazu wird als Executable das aktuelle Python Environment benutzt, da Python-Skripte selbst nicht ausführbar sind. Ist der Algorithmus selbst eine aufrufbare Programminstanz, sollte `mode = generic` gesetzt sein.
+- `mode` beschreibt, wie der in `target` definierte Algorithmus ausgeführt werden soll. `mode = python` wird benötigt, wenn es sich bei dem Target um ein Python-Skript handelt. Dazu wird als Executable das aktuelle Python Environment benutzt, da Python-Skripte selbst nicht ausführbar sind. Ist der Algorithmus selbst eine aufrufbare Programminstanz, sollte `mode = generic` gesetzt sein.
 - `target` ist der aufzurufende Algorithmus selbst. Kann ein ausführbares Programm sein oder ein Python-Skript. Beachte dazu auch `mode`.
 - `error_handling` Bei `error_handling = interrupt` wird der Ablauf gestoppt, sollte der Algorithmus einen Fehler zurückgeben. Bei `error_handling = ignore` wird jeglicher Fehler innerhalb des Algorithmus ignoriert und zur nächsten Kombination aus Bilddaten und Iteratoren gesprungen.
 
@@ -207,7 +207,7 @@ discont_threshold = 15.0
 ### <a name="template"></a> Template
 
 Die mit `$` markierten Tags werden während des Programmablaufs durch gesetzte Konstanten und die Laufvariablen der Iteratoren ersetzt.
-Des Weiteren können unterschiedliche Programm-intere Tags verwendet werden:
+Des Weiteren können unterschiedliche programm-intere Tags verwendet werden:
 
 - `$imgL$`, `$imgR$` Der absolute Pfad des linken/rechten Bildes des aktuellen Testbildpaares.
 - `$out$` Konstanter absoluter Pfad, der nach dem Ablauf des Algorithmus zur Evaluation mit der Grundwahrheit verwendet wird. In Konfigurationsdatei definierbar.
@@ -239,20 +239,20 @@ Die Bildung des Aufrufs wird wiederholt für alle Testbildpaare in Verbindung mi
 
 Es ist zu beachten, dass wenn nach dem Parsen des Templates noch `$`-Symbole übrig sind, es zu einem Fehler kommt. 
 Eine weitere Vorraussetzung ist, dass alle gesetzten Iteratoren im Template vorkommen. 
-Es ist hingegen nicht erforderlich, dass die anderen oben genannten Tags vorkommen (ausgenommen `$out$`).
+Es ist hingegen nicht erforderlich, dass die anderen oben genannten Tags beinhaltet sind (ausgenommen `$out$`).
 
 
 ## <a name="evaluation"></a> Evaluataion
 
 Auf das berechnete Disparitätsbild wird eine Vielzahl von Qualitätsmetriken angewendet. 
-Die Metriken müssen nicht vorher ausgewählt werden, sondern werden immer berechnet.  
+Die Metriken müssen nicht vorher ausgewählt werden, sondern werden stete berechnet.  
 Verglichen werden bei der Bestimmung der Werte immer das berechnte Disparitätsbild mit der Grundwahrheit.   
-Zu beachten ist, dass nur valide Bildpunkte ausgewertet werden, die in beiden Bildern (Berechnetes Disparitätsbild und Grunwahrheit) ungleich 0 sind. Pixel für die kein Disparitätswert existiert, sollte vom Algorithmus den Zahlenwert 0 zugewisen werden.  
+Zu beachten ist, dass nur valide Bildpunkte ausgewertet werden, die in beiden Bildern (berechnetes Disparitätsbild und Grundwahrheit) ungleich 0 sind. Pixel für die kein Disparitätswert existiert, sollten vom Algorithmus den Zahlenwert 0 zugewiesen bekommen.  
 
-Bei reskalierten Testdaten müssen die Intensitätswerte der Grundwahrheit mit einem Korrekturfaktor, gleich dem Skalierungsfaktor, versehen werden. Der Faktor kann wie in [Konfiguration](#konfiguration) beschrieben, im Abschnitt `[EVALUATION]` im Schlüssel `gt_coefficient` definiert werden.
+Bei reskalierten Testdaten müssen die Intensitätswerte der Grundwahrheit mit einem Korrekturfaktor gleich dem Skalierungsfaktor versehen werden. Der Faktor kann wie in [Konfiguration](#konfiguration) beschrieben, im Abschnitt `[EVALUATION]` im Schlüssel `gt_coefficient` definiert werden.
 
 ### <a name="csv"></a> CSV-Resultate
-In der Resultierenden CSV-Datei finden sich folgende Spalten wieder:  
+In der resultierenden CSV-Datei finden sich folgende Spalten wieder:  
 (der [Platzhalter](#platzhalter) `*region*` wird in [Segmentierung](#segmentierung) erklärt)
 
 - `index` Index
@@ -270,11 +270,11 @@ In der Resultierenden CSV-Datei finden sich folgende Spalten wieder:
 
 ### <a name="segmentierung"></a> Segmentierung
 
-Zum Besseren Vergleich der Leistung der Algorithmen, in zur Evaluierung meist relevanten Bildregionen, lassen sich die Ergebnisse von einigen Metriken in bestimmten Bildregionen einzeln bestimmen.
+Zum besseren Vergleich der Leistung der Algorithmen, in zur Evaluierung meist relevanten Bildregionen, lassen sich die Ergebnisse von einigen Metriken in bestimmten Bildregionen einzeln bestimmen.
 Dazu lässt sich das Bild nach zwei lokalen Bildmerkmalen segmentieren:
 
 ##### Textur
-Es ist sinnvoll die Resultate eines Algorithmus anders in Bildbereichen mit geringer Textur zu bewerten als in Bereichen mit viel Textur. 
+Es ist sinnvoll, die Resultate eines Algorithmus, anders in Bildbereichen mit geringer Textur, zu bewerten als in Bereichen mit viel Textur. 
 Es lässt sich vom Program mithilfe des [Sobel](https://en.wikipedia.org/wiki/Sobel_operator) Operators der Texturgehalt einer Bildregion bestimmen.  
 In der [Konfigurationsdatei](#konfiguration) lassen sich im Abschnitt `EVALUATION` Einstellungen zu dem gewünschten Schwellenwert zur Segmentierung des Bildes treffen.
 Der durch die Einstellungen definierte Bereich mit geringer Textur lässt sich mithilfe der Funktion `show_region()` anzeigen.  
@@ -295,7 +295,7 @@ a.daw()
 ```
 
 ##### Disparitätsdiskontinuitäten
-Ein weiteres wichtiges Kriterium der Bildsegmentierung ist der Bereich von Disparitätsdiskontinuitäten. Zur Auswertung kann es relevant sein, Bereiche in denen sich die Disparität eines Bildes sprunghaft ändert anders zu beurteilen als Bereiche mit kontinuierlichen Disparitäten.  
+Ein weiteres wichtiges Kriterium der Bildsegmentierung ist der Bereich von Disparitätsdiskontinuitäten. Zur Auswertung kann es relevant sein, Bereiche in denen sich die Disparität eines Bildes sprunghaft ändert, anders zu beurteilen als Bereiche mit kontinuierlichen Disparitäten.  
 Daher wird analog zur Textur das Bild nach diesem Kriterum segmentiert.
 Die Parameter der Segmentierung lassen sich in der [Konfiguration](#konfiguration) festlegen.  
 Der ausgewählte Bereich lässt sich durch folgenden Befehl anzeigen:
@@ -317,11 +317,11 @@ Aus der Segmentierung ergeben sich demnach folgenden Möglichkeiten den Platzhal
 ## <a name="plotting"></a> Plotting
 
 Zur Visualisierung der Resultate steht ein intelligentes Werkzeug zur Verfügung.
-Es ermöglicht die Gruppierung von Daten anhand einer Kategorie und die Darstellung von mehreren Mittelwerten unterschiedlichen Evaluationsparamter.
+Es ermöglicht die Gruppierung von Daten anhand einer Kategorie und die Darstellung von mehreren Mittelwerten unterschiedlicher Evaluationsparamter.
 Zusätzlich lässt sich der Datensatz nach mehreren Kategorien filtern.
 Der Plot wird dabei im `results_dir` Verzeichnis als PNG-Datei gespeichert.
 
-Zur Erstellung eines Plots müssen mindestens zwei Festlegungen gemacht werden.
+Zur Erstellung eines Plots müssen mindestens zwei Festlegungen getroffen werden.
 
 1. Welche Datenkategorien (Spalten der [CSV](#csv)-Datei) im Mittelwert sollen angezeigt werden?
 2. Nach welcher Datenkategorie soll gruppiert werden?
@@ -332,14 +332,14 @@ Der konkrete Aufruf der Plotting-Funktion ist folgender:
 ```python
 a.plot(y_category="rms_total", x_category="window_size")
 ```
-Der Parameter `y_category` definiert die Mittelwerten der Daten pro Kategorie, die entlang der y-Achse angezeigt werden. Es ist möglich mehrere innerhalb einer Liste anzugeben (Nur für Style "default").
+Der Parameter `y_category` definiert die Mittelwerte der Daten pro Kategorie, die entlang der y-Achse angezeigt werden. Es ist möglich mehrere innerhalb einer Liste anzugeben (nur für Style "default").
 
 Der Parameter `x_category` definiert die Datenkategorie, nach der die Werte gruppiert werden sollen.
 
 Es können dabei alle Spalten der CSV-Datei verwendet werden.
 
 ##### Filter
-Es können zur weiteren Eingrenzung der Daten, Filter verwendet werden. Dazu muss an den Parameter `filters` ein Dictionary übergeben werden, mit folgendem Aufbau:
+Es können zur weiteren Eingrenzung der Daten Filter verwendet werden. Dazu muss an den Parameter `filters` ein Dictionary übergeben werden, mit folgendem Aufbau:
 
 ```python
 filter = {category1: value1, category2: value2}
@@ -362,8 +362,8 @@ Beispiel: [Link](https://github.com/dettoman/py_stereo_alg_eval/blob/master/exam
 
 - `results_name` Neben den genannten Parametern kann die CSV-Datei als Datenquelle ausgewählt werden, sollte sie vom Namen `results.csv` abweichen. Die Datei muss sich jedoch immer in dem in der [Konfiguration](#konfiguration) definierten `results_dir` Verzeichnis befinden.
 - `unique` Durch einen übergebenen `True` Wert an den Parameter, wird dem Dateinamen, der standardmäßig dem Dateinamen der CSV-Datei entspricht, ein Zeitstempel angehägt. Dieser Parameter ist standardmäßg `False`.
-- `relative_base` Diesem Parameter kann ein Wert aus der gewählten `x_category` übergeben werden. Danach ist auf dem Plot der Mittelwert der relativen Änderungen der y-Werte zu dem gewählten wert gezeigt. Die relativen werte werden für jeden Datensatz einzeln berechnet und danach gemittelt.
-- `axis_label` Damit lassen sich eigene Achsen-Bezechnungen einstellen, die die automatisch Erzeugten überschreiben. Siehe [Alle Funktionen](#allefunc)
+- `relative_base` Diesem Parameter kann ein Wert aus der gewählten `x_category` übergeben werden. Danach ist auf dem Plot der Mittelwert der relativen Änderungen der y-Werte zu dem gewählten Wert gezeigt. Die relativen Werte werden für jeden Datensatz einzeln berechnet und danach gemittelt.
+- `axis_label` Damit lassen sich eigene Achsen-Bezeichnungen einstellen, die die automatisch erzeugten überschreiben. Siehe [Alle Funktionen](#allefunc)
 - `disable_error` Die geplotteten Fehlerbalken können mit diesem Parameter deaktiviert werden.
 
 ## <a name="allefunc"></a> Alle Funktionen
@@ -378,9 +378,9 @@ Beispiel: [Link](https://github.com/dettoman/py_stereo_alg_eval/blob/master/exam
 - `set_error_handling(error_handling)` zum Setzen des Verhaltens bei einem Fehler im Algorithmus
 	- `error_handling (str)`: Error Handling Modus. Möglichkeiten: `'ignore'`, `'interrupt'`
 - `get_iterators()` gibt alle definierten Iteratoren zurück
-	- `return=dict`: Gibt Dictionary mit Iteratoren zurück.
+	- `return=dict`: gibt Dictionary mit Iteratoren zurück.
 - `get_constants()` gibt alle definierten Konstanten zurück
-	- `return=dict`: Gibt Dictionary mit Konstanten zurück.
+	- `return=dict`: gibt Dictionary mit Konstanten zurück.
 - `set_iterators(name, steps, remove)` zum setzen eines Iterators. 
 	- `name (str)`: Name des Iterators
 	- `steps (list of int/str/float)`: Schritte der Laufvariable
@@ -391,17 +391,17 @@ Beispiel: [Link](https://github.com/dettoman/py_stereo_alg_eval/blob/master/exam
 	- `remove=False (bool)`: ob Konstante entfernt werden soll. Value darf nicht angegeben werden. Standardmäßig auf `False`
 - `set_evaluation_parameter(paramter, value)` Definiert Parameter zur Auswertung, wie Segmentierung oder Koeffizient für Grundwahrheit
 	- `parameter (str)`: Name des Parameters (siehe Konfiguration). Möglichkeiten: `'gt_coefficient'`, `'textureless_threshold'`, `'discont_threshold'`, `'textureless_width'`, `'discont_width'`
-	- `value`: Wert. Thresholds und der Koeefizient sind als `float` und die Width Parameter als `int` anzugeben
+	- `value`: Wert. Thresholds und der Koeffizient sind als `float` und die Width Parameter als `int` anzugeben
 - `set_execution_template(template)` zum Setzen des Templates
 	- `tempalte (str)`: Template 
 - `check_execution_template` Methode zum Überprüfen des Templates, ob alle notwendigen Tags enthalten sind
 	- `return=bool`: ob Template funktionsfähig ist
-- `set_preprocessing(filter_name, parms)` Methode zum aktivieren und definieren der optionalen Vorverarbeitung der Bilddaten.
+- `set_preprocessing(filter_name, parms)` Methode zum Aktivieren und Definieren der optionalen Vorverarbeitung der Bilddaten.
     - `filter_name (str)` Name der Filterfunktion aus [skimage.filter](http://scikit-image.org/docs/dev/api/skimage.filters.html) oder [skimage.feature](http://scikit-image.org/docs/dev/api/skimage.feature.html).
     - `params (dict)` Optionale Parameter für die Filterfunktion im dict format. Beispiel: `dict(param1=1.5, para2="test")`
 - `remove_preprocessing()` Methode zum Löschen aller Einstellungen zur Vorverarbeitung
 - `daw()` schließt alle Fenster
-- `show_region(mode, images_of_dataset)` Funktion zum anzeigen von aktueller Einstellung zur Segmentierung
+- `show_region(mode, images_of_dataset)` Funktion zum Anzeigen von aktueller Einstellung zur Segmentierung
 	- `mode (str)`: angezeigte Segemtierung. Möglichkeiten: `'textureless'`, `'discontinued'`
 	- `image_of_dataset=None (str)`: Ordnername des angezeigten Bildes. Standardmäßg wird erstes Bild des Datensatz-Verzeichnisses angezeigt.
 - `get_dataset()` Gibt geparstes Dictionary des Datensatz-Verzeichnisses wieder
