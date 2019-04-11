@@ -17,6 +17,7 @@ Die Funktionsfähigkeit von PyStereoAlgEval ist mit den genannten Versionen veri
 - [NumPy](http://www.numpy.org): 1.15.3
 - [Pandas](https://pandas.pydata.org): 0.23.4
 - [SciPy](https://www.scipy.org): 1.1.0
+- [Scikit-Image](https://scikit-image.org): 0.14.1
 
 ### Installation
 
@@ -240,6 +241,8 @@ Die Bildung des Aufrufs wird wiederholt für alle Testbildpaare in Verbindung mi
 Es ist zu beachten, dass wenn nach dem Parsen des Templates noch `$`-Symbole übrig sind, es zu einem Fehler kommt. 
 Eine weitere Vorraussetzung ist, dass alle gesetzten Iteratoren im Template vorkommen. 
 Es ist hingegen nicht erforderlich, dass die anderen oben genannten Tags beinhaltet sind (ausgenommen `$out$`).
+
+Hinweis: Zur Nutzung der verwendeten Stereo-Algorithmus-Sammlung "stereo.py" muss diese datei aus dem Repository heruntergeladen werden. Diese ist in der Installation über pip nicht enthalten. 
 
 
 ## <a name="evaluation"></a> Evaluataion
